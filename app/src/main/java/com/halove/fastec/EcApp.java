@@ -3,6 +3,7 @@ package com.halove.fastec;
 import android.app.Application;
 
 import com.halove.latte.app.Latte;
+import com.halove.latte.ec.icon.FontEcModel;
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
 
 /**
@@ -15,7 +16,8 @@ public class EcApp extends Application {
         super.onCreate();
         Latte.init(this)
                 .withIcon(new FontAwesomeModule())
-                .withApiHost("http:192.168.1.105")
+                .withIcon(new FontEcModel())
+                .withApiHost("http://192.168.1.105/")
                 .configure();
     }
 }
