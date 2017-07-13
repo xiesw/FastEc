@@ -30,4 +30,8 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:25.4.0'
     testImplementation 'junit:junit:4.12'
     implementation project(':latte-annotations')
+    //字体图标库
+    implementation 'com.joanzapata.iconify:android-iconify-ionicons:2.2.2'
+    implementation 'com.joanzapata.iconify:android-iconify-fontawesome:2.2.2'
+    implementation 'com.joanzapata.android.iconify:android-iconify-fontawesome:2.0.0'
 }
