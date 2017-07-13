@@ -29,5 +29,5 @@ dependencies {
     })
     implementation 'com.android.support:appcompat-v7:25.4.0'
     testImplementation 'junit:junit:4.12'
-    implementation project(':latte-core')
+    compile project(':latte-core')
 }
