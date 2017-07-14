@@ -1,9 +1,12 @@
 package com.halove.latte.net;
 
+import android.content.Context;
+
 import com.halove.latte.net.callback.IError;
 import com.halove.latte.net.callback.IFailure;
 import com.halove.latte.net.callback.IRequest;
 import com.halove.latte.net.callback.ISuccess;
+import com.halove.latte.ui.LoaderStyle;
 
 import java.util.Map;
 
@@ -22,6 +25,8 @@ public class RestClientBuilder {
     private IError mError;
     private IFailure mFailure;
     private RequestBody mBody;
+    private Context mContext;
+    private LoaderStyle mLoaderStyle;
 
     RestClientBuilder() {
     }
@@ -56,17 +61,29 @@ public class RestClientBuilder {
         return this;
     }
 
-    public final RestClientBuilder error(IError iError) {
-        this.mError = iError;
-        return this;
-    }
-
     public final RestClientBuilder failure(IFailure iFailure) {
         this.mFailure = iFailure;
         return this;
     }
 
+    public final RestClientBuilder error(IError iError) {
+        this.mError = iError;
+        return this;
+    }
+
+    public final RestClientBuilder loader(Context context, LoaderStyle style) {
+        this.mContext = context;
+        this.mLoaderStyle = style;
+        return this;
+    }
+
+    public final RestClientBuilder loader(Context context) {
+        this.mContext = context;
+        this.mLoaderStyle = LoaderStyle.BallClipRotatePulseIndicator;
+        return this;
+    }
+
     public final RestClient build() {
-        return new RestClient(mUrl, PARAMS, mRequest, mSuccess, mError, mFailure, mBody);
+        return new RestClient(mUrl, PARAMS, mRequest, mSuccess, mError, mFailure, mBody, mLoaderStyle, mContext);
     }
 }
