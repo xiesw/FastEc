@@ -8,6 +8,7 @@ import com.halove.latte.net.callback.IRequest;
 import com.halove.latte.net.callback.ISuccess;
 import com.halove.latte.ui.LoaderStyle;
 
+import java.io.File;
 import java.util.Map;
 
 import okhttp3.MediaType;
@@ -25,6 +26,7 @@ public class RestClientBuilder {
     private IError mError;
     private IFailure mFailure;
     private RequestBody mBody;
+    private File mFile;
     private Context mContext;
     private LoaderStyle mLoaderStyle;
 
@@ -66,6 +68,16 @@ public class RestClientBuilder {
         return this;
     }
 
+    public final RestClientBuilder file(File file) {
+        this.mFile = file;
+        return this;
+    }
+
+    public final RestClientBuilder file(String filePath) {
+        this.mFile = new File(filePath);
+        return this;
+    }
+
     public final RestClientBuilder error(IError iError) {
         this.mError = iError;
         return this;
@@ -84,6 +96,7 @@ public class RestClientBuilder {
     }
 
     public final RestClient build() {
-        return new RestClient(mUrl, PARAMS, mRequest, mSuccess, mError, mFailure, mBody, mLoaderStyle, mContext);
+        return new RestClient(mUrl, PARAMS, mRequest, mSuccess, mError, mFailure, mBody, mFile,
+                mLoaderStyle, mContext);
     }
 }

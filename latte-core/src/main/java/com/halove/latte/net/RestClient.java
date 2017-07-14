@@ -10,9 +10,12 @@ import com.halove.latte.net.callback.RequestCallbacks;
 import com.halove.latte.ui.LatteLoader;
 import com.halove.latte.ui.LoaderStyle;
 
+import java.io.File;
 import java.util.Map;
 import java.util.WeakHashMap;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,6 +34,7 @@ public class RestClient {
     private final IFailure FAILURE;
     private final RequestBody BODY;
     private final LoaderStyle LOADER_STYLE;
+    private final File FILE;
     private final Context CONTEXT;
 
     public RestClient(String url,
@@ -39,6 +43,7 @@ public class RestClient {
                       IError error,
                       IFailure failure,
                       RequestBody body,
+                      File file,
                       LoaderStyle loaderStyle,
                       Context context) {
         URL = url;
@@ -48,6 +53,7 @@ public class RestClient {
         ERROR = error;
         FAILURE = failure;
         BODY = body;
+        FILE = file;
         LOADER_STYLE = loaderStyle;
         CONTEXT = context;
     }
@@ -81,6 +87,20 @@ public class RestClient {
             case DELETE:
                 call = service.delete(URL, PARAMS);
                 break;
+            case POST_RAW:
+                call = service.postRaw(URL, BODY);
+                break;
+            case PUT_RAW:
+                call = service.putRaw(URL, BODY);
+                break;
+            case UPLOAD:
+                final RequestBody requestBody = RequestBody.create(MediaType.parse(MultipartBody
+                        .FORM
+                        .toString()), FILE);
+                final MultipartBody.Part body = MultipartBody.Part.createFormData("file", FILE
+                        .getName());
+                call = RestCreator.getRestService().upload(URL, body);
+                break;
             default:
                 break;
         }
@@ -97,12 +117,30 @@ public class RestClient {
     public final void get() {
         request(HttpMethod.GET);
     }
-    public final void gost() {
-        request(HttpMethod.POST);
+
+    public final void post() {
+        if(BODY == null) {
+            request(HttpMethod.POST);
+        } else {
+            if(!PARAMS.isEmpty()) {
+                throw new RuntimeException("params must be null!");
+            }
+            request(HttpMethod.POST_RAW);
+        }
     }
+
     public final void put() {
-        request(HttpMethod.PUT);
+        if(BODY == null) {
+            request(HttpMethod.PUT);
+        } else {
+            if(!PARAMS.isEmpty()) {
+                throw new RuntimeException("params must be null!");
+            }
+            request(HttpMethod.PUT_RAW);
+        }
+
     }
+
     public final void delete() {
         request(HttpMethod.DELETE);
     }
