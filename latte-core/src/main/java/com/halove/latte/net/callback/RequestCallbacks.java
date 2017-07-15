@@ -2,6 +2,8 @@ package com.halove.latte.net.callback;
 
 import android.os.Handler;
 
+import com.halove.latte.app.ConfigKeys;
+import com.halove.latte.app.Latte;
 import com.halove.latte.ui.LatteLoader;
 import com.halove.latte.ui.LoaderStyle;
 
@@ -63,13 +65,14 @@ public class RequestCallbacks implements Callback<String>{
     }
 
     private void onRequestFinish() {
+        final long delayed = Latte.getConfiguration(ConfigKeys.LOADER_DELAYED);
         if(LOADER_STYLE != null) {
             HANDLER.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     LatteLoader.stopLoading();
                 }
-            }, 3000);
+            }, delayed);
         }
     }
 
