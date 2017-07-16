@@ -4,8 +4,8 @@ import android.os.Handler;
 
 import com.halove.latte.app.ConfigKeys;
 import com.halove.latte.app.Latte;
-import com.halove.latte.ui.LatteLoader;
-import com.halove.latte.ui.LoaderStyle;
+import com.halove.latte.ui.loader.LatteLoader;
+import com.halove.latte.ui.loader.LoaderStyle;
 
 import retrofit2.Call;
 import retrofit2.Callback;

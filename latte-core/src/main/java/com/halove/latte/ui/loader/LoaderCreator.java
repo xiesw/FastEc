@@ -1,4 +1,4 @@
-package com.halove.latte.ui;
+package com.halove.latte.ui.loader;
 
 import android.content.Context;
 

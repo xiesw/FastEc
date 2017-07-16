@@ -1,4 +1,4 @@
-package com.halove.latte.ui;
+package com.halove.latte.ui.loader;
 
 /**
  * Created by xieshangwu on 2017/7/14 0014

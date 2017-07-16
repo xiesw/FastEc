@@ -8,8 +8,8 @@ import com.halove.latte.net.callback.IRequest;
 import com.halove.latte.net.callback.ISuccess;
 import com.halove.latte.net.callback.RequestCallbacks;
 import com.halove.latte.net.download.DownloadHandler;
-import com.halove.latte.ui.LatteLoader;
-import com.halove.latte.ui.LoaderStyle;
+import com.halove.latte.ui.loader.LatteLoader;
+import com.halove.latte.ui.loader.LoaderStyle;
 
 import java.io.File;
 import java.util.Map;

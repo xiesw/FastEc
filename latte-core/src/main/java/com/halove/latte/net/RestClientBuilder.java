@@ -6,7 +6,7 @@ import com.halove.latte.net.callback.IError;
 import com.halove.latte.net.callback.IFailure;
 import com.halove.latte.net.callback.IRequest;
 import com.halove.latte.net.callback.ISuccess;
-import com.halove.latte.ui.LoaderStyle;
+import com.halove.latte.ui.loader.LoaderStyle;
 
 import java.io.File;
 import java.util.Map;

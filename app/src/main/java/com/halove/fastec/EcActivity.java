@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 
 import com.halove.latte.activities.ProxyActivity;
 import com.halove.latte.delegate.LatteDelegate;
-import com.halove.latte.ec.launcher.LauncherDelegate;
+import com.halove.latte.ec.sign.SignUpDelegate;
 
 public class EcActivity extends ProxyActivity {
 
@@ -18,7 +18,7 @@ public class EcActivity extends ProxyActivity {
 
     @Override
     public LatteDelegate setRootDelegate() {
-        return new LauncherDelegate();
+        return new SignUpDelegate();
     }
 
 }
