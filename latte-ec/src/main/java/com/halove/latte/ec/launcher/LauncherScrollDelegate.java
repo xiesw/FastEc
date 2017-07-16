@@ -9,6 +9,7 @@ import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.halove.latte.delegate.LatteDelegate;
 import com.halove.latte.ec.R;
 import com.halove.latte.ui.launcher.LauncherHolderCreator;
+import com.halove.latte.util.LattePreference;
 
 import java.util.ArrayList;
 
@@ -49,6 +50,9 @@ public class LauncherScrollDelegate extends LatteDelegate implements OnItemClick
 
     @Override
     public void onItemClick(int position) {
-
+        if(position == INTEGERS.size() - 1) {
+            LattePreference.setAppFlag(ScrollLauncherTag.HAS_FRIST_LAUNCHER_APP.name(), true);
+            // todo 检查用户是否登陆
+        }
     }
 }
