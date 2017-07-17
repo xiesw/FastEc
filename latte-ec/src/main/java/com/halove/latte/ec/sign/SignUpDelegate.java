@@ -1,5 +1,6 @@
 package com.halove.latte.ec.sign;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
@@ -8,7 +9,6 @@ import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
-import android.widget.Toast;
 
 import com.halove.latte.delegate.LatteDelegate;
 import com.halove.latte.ec.R;
@@ -44,6 +44,16 @@ public class SignUpDelegate extends LatteDelegate {
     @BindView(R2.id.tv_link_sign_in)
     AppCompatTextView mTvLinkSignIn;
 
+    private ISignListener mISignListener = null;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if(activity instanceof ISignListener) {
+            mISignListener = (ISignListener) activity;
+        }
+    }
+
     @OnClick(R2.id.btn_sing_up)
     void onClickSignUp() {
         if(checkForm()) {
@@ -58,7 +68,7 @@ public class SignUpDelegate extends LatteDelegate {
                         public void onSuccess(String response) {
                             LatteLogger.json("USER_PROFILE", response);
                             Log.e("xieshangwu", response);
-                            SignHandler.onSignUp(response);
+                            SignHandler.onSignUp(response, mISignListener);
                         }
                     })
                     .failure(new IFailure() {
@@ -75,7 +85,6 @@ public class SignUpDelegate extends LatteDelegate {
                     })
                     .build()
                     .post();
-            Toast.makeText(getContext(), "验证通过", Toast.LENGTH_SHORT).show();
         }
     }
 

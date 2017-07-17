@@ -1,16 +1,23 @@
 package com.halove.latte.ec.sign;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 
 import com.halove.latte.delegate.LatteDelegate;
 import com.halove.latte.ec.R;
 import com.halove.latte.ec.R2;
+import com.halove.latte.net.RestClient;
+import com.halove.latte.net.callback.IError;
+import com.halove.latte.net.callback.IFailure;
+import com.halove.latte.net.callback.ISuccess;
+import com.halove.latte.util.LatteLogger;
 import com.joanzapata.iconify.widget.IconTextView;
 
 import butterknife.BindView;
@@ -32,10 +39,43 @@ public class SignInDelegate extends LatteDelegate {
     @BindView(R2.id.icon_sign_in_wechat)
     IconTextView mIconSignInWechat;
 
+    private ISignListener mISignListener = null;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if(activity instanceof ISignListener) {
+            mISignListener = (ISignListener) activity;
+        }
+    }
+
     @OnClick(R2.id.btn_sing_in)
     void onClickSignIn() {
         if(checkForm()) {
-
+            RestClient.builder()
+                    .url("examples/data/user_profile.json")
+                    .params("email",mEmail.getText().toString())
+                    .params("password",mPassword.getText().toString())
+                    .success(new ISuccess() {
+                        @Override
+                        public void onSuccess(String response) {
+                            LatteLogger.json("USER_PROFILE", response);
+                            Log.e("xieshangwu", response);
+                            SignHandler.onSignIn(response, mISignListener);
+                        }
+                    })
+                    .failure(new IFailure() {
+                        @Override
+                        public void onFailure() {
+                        }
+                    })
+                    .error(new IError() {
+                        @Override
+                        public void onError(int code, String msg) {
+                        }
+                    })
+                    .build()
+                    .post();
         }
     }
 
