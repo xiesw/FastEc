@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Toast;
@@ -12,9 +13,16 @@ import android.widget.Toast;
 import com.halove.latte.delegate.LatteDelegate;
 import com.halove.latte.ec.R;
 import com.halove.latte.ec.R2;
+import com.halove.latte.net.RestClient;
+import com.halove.latte.net.callback.IError;
+import com.halove.latte.net.callback.IFailure;
+import com.halove.latte.net.callback.ISuccess;
+import com.halove.latte.util.LatteLogger;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by xieshangwu on 2017/7/16 0016
@@ -39,17 +47,34 @@ public class SignUpDelegate extends LatteDelegate {
     @OnClick(R2.id.btn_sing_up)
     void onClickSignUp() {
         if(checkForm()) {
-            /*RestClient.builder()
-                    .url("sign_up")
-                    .params("","")
+            RestClient.builder()
+                    .url("examples/data/user_profile.json")
+                    .params("name",mName.getText().toString())
+                    .params("email",mEmail.getText().toString())
+                    .params("phone",mPhone.getText().toString())
+                    .params("password",mPassword.getText().toString())
                     .success(new ISuccess() {
                         @Override
                         public void onSuccess(String response) {
-
+                            LatteLogger.json("USER_PROFILE", response);
+                            Log.e("xieshangwu", response);
+                            SignHandler.onSignUp(response);
+                        }
+                    })
+                    .failure(new IFailure() {
+                        @Override
+                        public void onFailure() {
+                            Log.d(TAG, "onFailure: ");
+                        }
+                    })
+                    .error(new IError() {
+                        @Override
+                        public void onError(int code, String msg) {
+                            Log.d(TAG, "onError: ");
                         }
                     })
                     .build()
-                    .post();*/
+                    .post();
             Toast.makeText(getContext(), "验证通过", Toast.LENGTH_SHORT).show();
         }
     }
