@@ -8,6 +8,7 @@ import android.widget.Toast;
 import com.halove.latte.activities.ProxyActivity;
 import com.halove.latte.delegate.LatteDelegate;
 import com.halove.latte.ec.launcher.LauncherDelegate;
+import com.halove.latte.ec.main.EcBottomDelegate;
 import com.halove.latte.ec.sign.ISignListener;
 import com.halove.latte.ec.sign.SignInDelegate;
 import com.halove.latte.ui.launcher.ILauncherListener;
@@ -41,8 +42,7 @@ public class EcActivity extends ProxyActivity implements ISignListener,ILauncher
         switch(tag) {
             case SIGNED:
                 Toast.makeText(this, "启动结束,用户登陆", Toast.LENGTH_SHORT).show();
-                // todo 进入主页
-                startWithPop(new EcDelegate());
+                startWithPop(new EcBottomDelegate());
                 break;
             case NOT_SIGNED:
                 Toast.makeText(this, "启动结束,用户没登陆", Toast.LENGTH_SHORT).show();
