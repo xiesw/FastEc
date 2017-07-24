@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatEditText;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -11,8 +12,7 @@ import android.view.View;
 import com.halove.latte.delegate.bottom.BottomItemDelegate;
 import com.halove.latte.ec.R;
 import com.halove.latte.ec.R2;
-import com.halove.latte.net.RestClient;
-import com.halove.latte.net.callback.ISuccess;
+import com.halove.latte.ui.refresh.PagingBean;
 import com.halove.latte.ui.refresh.Refreshhandler;
 import com.joanzapata.iconify.widget.IconTextView;
 
@@ -43,13 +43,8 @@ public class IndexDelegate extends BottomItemDelegate {
 
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
-        mRefreshhandler = new Refreshhandler(mSwipeRefreshLayout);
-        RestClient.builder().url("index_data.json").success(new ISuccess() {
-            @Override
-            public void onSuccess(String response) {
-
-            }
-        }).build().get();
+        mRefreshhandler = Refreshhandler.create(mSwipeRefreshLayout, mRecyclerView, new
+                IndexDataConverter(), new PagingBean());
     }
 
     private void initRefreshLayout() {
@@ -58,10 +53,16 @@ public class IndexDelegate extends BottomItemDelegate {
         mSwipeRefreshLayout.setProgressViewOffset(true, 120, 300);
     }
 
+    private void initRecyclerView() {
+        final GridLayoutManager manager = new GridLayoutManager(getContext(), 4);
+        mRecyclerView.setLayoutManager(manager);
+    }
+
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
         initRefreshLayout();
+        initRecyclerView();
         mRefreshhandler.firstPage("index_data.json");
     }
 
