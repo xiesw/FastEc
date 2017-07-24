@@ -3,7 +3,6 @@ package com.halove.fastec;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
-import android.widget.Toast;
 
 import com.halove.latte.activities.ProxyActivity;
 import com.halove.latte.delegate.LatteDelegate;
@@ -29,23 +28,23 @@ public class EcActivity extends ProxyActivity implements ISignListener,ILauncher
 
     @Override
     public void onSignInSuccess() {
-        Toast.makeText(this, "登陆成功", Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "登陆成功", Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onSignUpSuccess() {
-        Toast.makeText(this, "注册成功", Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "注册成功", Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onLauncherFinish(OnLauncherFinishTag tag) {
         switch(tag) {
             case SIGNED:
-                Toast.makeText(this, "启动结束,用户登陆", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "启动结束,用户登陆", Toast.LENGTH_SHORT).show();
                 startWithPop(new EcBottomDelegate());
                 break;
             case NOT_SIGNED:
-                Toast.makeText(this, "启动结束,用户没登陆", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "启动结束,用户没登陆", Toast.LENGTH_SHORT).show();
                 startWithPop(new SignInDelegate());
                 break;
             default:

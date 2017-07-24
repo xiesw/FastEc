@@ -21,8 +21,8 @@ public class EcApp extends Application {
                 .withIcon(new FontAwesomeModule())
                 .withIcon(new FontEcModel())
                 .withLoadDelay(3000)
-                .withApiHost("http://121.42.181.106:8080/")
-                .withInterceptor(new DebugInterceptor("index", R.raw.test))
+                .withApiHost("http://121.42.181.106:8080/examples/data/")
+                .withInterceptor(new DebugInterceptor("fctest", R.raw.test))
                 .configure();
 
         DatabaseManager.getInstance().init(this);

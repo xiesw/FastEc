@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 
@@ -17,7 +16,6 @@ import com.halove.latte.net.RestClient;
 import com.halove.latte.net.callback.IError;
 import com.halove.latte.net.callback.IFailure;
 import com.halove.latte.net.callback.ISuccess;
-import com.halove.latte.util.LatteLogger;
 import com.joanzapata.iconify.widget.IconTextView;
 
 import butterknife.BindView;
@@ -53,14 +51,12 @@ public class SignInDelegate extends LatteDelegate {
     void onClickSignIn() {
         if(checkForm()) {
             RestClient.builder()
-                    .url("examples/data/user_profile.json")
+                    .url("user_profile.json")
                     .params("email",mEmail.getText().toString())
                     .params("password",mPassword.getText().toString())
                     .success(new ISuccess() {
                         @Override
                         public void onSuccess(String response) {
-                            LatteLogger.json("USER_PROFILE", response);
-                            Log.e("xieshangwu", response);
                             SignHandler.onSignIn(response, mISignListener);
                         }
                     })

@@ -10,7 +10,7 @@ import com.joanzapata.iconify.IconFontDescriptor;
 public class FontEcModel implements IconFontDescriptor {
     @Override
     public String ttfFileName() {
-        return "iconfot.ttf";
+        return "iconfont.ttf";
     }
 
     @Override
