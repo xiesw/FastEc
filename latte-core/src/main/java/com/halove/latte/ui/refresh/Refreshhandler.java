@@ -41,7 +41,7 @@ public class Refreshhandler implements SwipeRefreshLayout.OnRefreshListener, Bas
 
 
     private void refresh() {
-        REFRESH_LAYOUT.setRefreshing(true);
+
     }
 
     public void firstPage(String url) {
