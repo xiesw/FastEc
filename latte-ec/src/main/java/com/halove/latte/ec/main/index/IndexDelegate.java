@@ -13,6 +13,7 @@ import android.view.View;
 import com.halove.latte.delegate.bottom.BottomItemDelegate;
 import com.halove.latte.ec.R;
 import com.halove.latte.ec.R2;
+import com.halove.latte.ec.main.EcBottomDelegate;
 import com.halove.latte.ui.recycler.BaseDecoration;
 import com.halove.latte.ui.refresh.PagingBean;
 import com.halove.latte.ui.refresh.Refreshhandler;
@@ -60,6 +61,9 @@ public class IndexDelegate extends BottomItemDelegate {
         mRecyclerView.setLayoutManager(manager);
         mRecyclerView.addItemDecoration(BaseDecoration.create(ContextCompat.getColor(getContext()
                 , R.color.app_background), 5));
+
+        final EcBottomDelegate ecBottomDelegate = (EcBottomDelegate) getParentFragment();
+        mRecyclerView.addOnItemTouchListener(IndexItemClickListener.create(ecBottomDelegate));
     }
 
     @Override
